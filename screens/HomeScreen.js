@@ -4,7 +4,6 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  Header,
   Image,
 } from 'react-native';
 
@@ -13,16 +12,20 @@ import db from '../config';
 
 export default class HomeScreen extends Component {
 
+  nextScreen =()=>{
+    this.props.navigation.navigate('ThankyouScreen');
+  }
+  
   teamA(){
    db.ref('/').update({
-     'teamA':1
+     'teamA':'teamA'+1
    })
  }
 
  teamB(){
    console.log(db);
    db.ref('/').update({
-     'teamB':2
+     'teamB':'teamB'+1
    })
  }
 
@@ -43,13 +46,13 @@ export default class HomeScreen extends Component {
             <Text style={{ textAlign: 'center',fontSize:25 }}>Vote Here</Text>
             <TouchableOpacity
               style={styles.buttons}
-              onPress ={this.teamA()}>
+              onPress ={[this.teamA(), ()=>{this.nextScreen()}]}>
               <Text style={{ fontSize:20}}>Team A</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.buttons}
-              onPress ={this.teamB()}>
+              onPress ={[this.teamB(), ()=>{this.nextScreen()}]}>
               <Text style={{ fontSize:20}}>Team B</Text>
             </TouchableOpacity>
 
